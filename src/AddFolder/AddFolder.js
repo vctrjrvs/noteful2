@@ -19,7 +19,7 @@ export default class AddFolder extends Component {
           const folder = {
                folder_name: e.target['folder-name'].value
           }
-          fetch(config.API_ENDPOINT + 'folders', {
+          fetch(config.API_ENDPOINT + '/api/folders', {
                method: 'POST',
                headers: {
                     'content-type': 'application/json'
@@ -33,7 +33,8 @@ export default class AddFolder extends Component {
                })
                .then(folder => {
                     this.context.addFolder(folder)
-                    this.props.history.push(`/folder/${folder.id}`)
+                    console.log(folder)
+                    this.props.history.push(`/`)
                })
                .catch(error => {
                     console.error({ error })
@@ -43,10 +44,10 @@ export default class AddFolder extends Component {
      render() {
           return (
                <section className='AddFolder'>
-                    <h2>Create a folder</h2>
+                    <h2>Create A Folder</h2>
                     <NotefulForm onSubmit={this.handleSubmit}>
                          <div className='field'>
-                              <label htmlFor='folder-name-input'>Name</label>
+                              <label htmlFor='folder-name-input'>Folder Name</label>
                               <input type='text' id='folder-name-input' name='folder-name' />
                          </div>
                          <div className='buttons'>

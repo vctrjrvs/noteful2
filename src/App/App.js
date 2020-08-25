@@ -19,13 +19,19 @@ export default class App extends Component {
 
     componentDidMount() {
         Promise.all([
-            fetch(`${config.API_ENDPOINT}notes`, {
+            fetch(`${config.API_ENDPOINT}/api/notes`, {
                 method: 'GET',
-                headers: { 'content-type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
             }),
-            fetch(`${config.API_ENDPOINT}folders`, {
+            fetch(`${config.API_ENDPOINT}/api/folders`, {
                 method: 'GET',
-                headers: { 'content-type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                },
             })
         ])
             .then(([notesRes, foldersRes]) => {
@@ -78,10 +84,10 @@ export default class App extends Component {
                 {['/', '/folder/:folderId'].map(path =>
                     <Route exact key={path} path={path} component={NoteListNav} />
                 )}
-                <Route path="/note/:noteId" component={NotePageNav}
+                <Route path='/note/:noteId' component={NotePageNav}
                 />
-                <Route path="/add-folder" component={NotePageNav} />
-                <Route path="/add-note" component={NotePageNav} />
+                <Route path='/add-folder' component={NotePageNav} />
+                <Route path='/add-note' component={NotePageNav} />
             </>
         );
     }
@@ -93,9 +99,9 @@ export default class App extends Component {
                     <Route exact key={path} path={path} component={NoteListMain}
                     />
                 ))}
-                <Route path="/note/:noteId" component={NotePageMain} />
-                <Route path="/add-folder" component={AddFolder} />
-                <Route path="/add-note" component={AddNote} />
+                <Route path='/note/:noteId' component={NotePageMain} />
+                <Route path='/add-folder' component={AddFolder} />
+                <Route path='/add-note' component={AddNote} />
             </>
         );
     }
@@ -111,15 +117,15 @@ export default class App extends Component {
 
         return (
             <apiContext.Provider value={value}>
-                <div className="App">
-                    <nav className="App__nav">{this.renderNavRoutes()}</nav>
-                    <header className="App__header">
+                <div className='App'>
+                    <nav className='App__nav'>{this.renderNavRoutes()}</nav>
+                    <header className='App__header'>
                         <h1>
-                            <Link to="/">Noteful</Link>{' '}
-                            <FontAwesomeIcon icon="check-double" />
+                            <Link to='/'>Noteful</Link>{' '}
+                            <FontAwesomeIcon icon='check-double' />
                         </h1>
                     </header>
-                    <main className="App__main">{this.renderMainRoutes()}</main>
+                    <main className='App__main'>{this.renderMainRoutes()}</main>
                 </div>
             </apiContext.Provider>
         );

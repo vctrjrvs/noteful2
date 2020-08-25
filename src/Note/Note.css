@@ -1,4 +1,3 @@
-
 .Note {
   --note-height: 88px;
   background-color: #010d1e;
@@ -44,12 +43,18 @@
   text-decoration: none;
 }
 .Note__title a:hover {
-  color: #FFB72F;
+  color: #ffb72f;
 }
 
-.Note__dates {
-  bottom: 8px;
+.Note__content {
   color: #a7a5a5;
   font-size: 14px;
   position: absolute;
+}
+
+.Note__dates {
+  color: #a7a5a5;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0;
 }

@@ -19,13 +19,13 @@ export default class AddNote extends Component {
           const newNote = {
                note_name: e.target['note-name'].value,
                content: e.target['note-content'].value,
-               folderId: e.target['note-folder-id'].value,
+               folderid: e.target['note-folder-id'].value,
                date_modified: new Date(),
           }
-          fetch(config.API_ENDPOINT + 'notes', {
+          fetch(config.API_ENDPOINT + '/api/notes', {
                method: 'POST',
                headers: {
-                    'content-type': 'application/json'
+                    'Content-Type': 'application/json'
                },
                body: JSON.stringify(newNote),
           })
@@ -36,7 +36,8 @@ export default class AddNote extends Component {
                })
                .then(note => {
                     this.context.addNote(note)
-                    this.props.history.push(`/folder/${note.folderId}`)
+                    console.log(note)
+                    this.props.history.push(`/`)
                })
                .catch(error => {
                     console.error({ error })
@@ -47,10 +48,10 @@ export default class AddNote extends Component {
           const { folders = [] } = this.context
           return (
                <section className='AddNote'>
-                    <h2>Create a note</h2>
+                    <h2>Create A Note</h2>
                     <NotefulForm onSubmit={this.handleSubmit}>
                          <div className='field'>
-                              <label htmlFor='note-name-input'>Name</label>
+                              <label htmlFor='note-name-input'>Note Name</label>
                               <input type='text' id='note-name-input' name='note-name' />
                          </div>
                          <div className='field'>
@@ -60,14 +61,16 @@ export default class AddNote extends Component {
                          <div className='field'>
                               <label htmlFor='note-folder-select'>Folder</label>
                               <select id='note-folder-select' name='note-folder-id'>
-                                   <option value={null}>...</option>
+                                   <option value={null}>Select A Folder</option>
                                    {folders.map(folder =>
-                                        <option key={folder.id} value={folder.id}>{folder.folder_name}</option>
+                                        <option name={folder.folder_name} key={folder.id} value={folder.id}>
+                                             {folder.folder_name}
+                                        </option>
                                    )}
                               </select>
                          </div>
                          <div className='buttons'>
-                              <button type='submit'>Add note</button>
+                              <button type='submit'>Add Note</button>
                          </div>
                     </NotefulForm>
                </section>

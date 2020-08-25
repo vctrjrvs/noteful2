@@ -17,10 +17,10 @@ export default class Note extends React.Component {
   handleClickDelete = e => {
     e.preventDefault()
     const noteId = this.props.id
-    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
+    fetch(`${config.API_ENDPOINT}/api/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
-        'content-type': 'application/json'
+        'Content-Type': 'application/json'
       },
     })
       .then(res =>
@@ -38,7 +38,7 @@ export default class Note extends React.Component {
   }
 
   render() {
-    const { note_name, id, date_modified, content } = this.props
+    const { note_name, date_modified, id, content } = this.props
     return (
       <div className='Note'>
         <h2 className='Note__title'>
@@ -46,20 +46,22 @@ export default class Note extends React.Component {
             {note_name}
           </Link>
         </h2>
-        <button className='Note__delete' type='button'>
+        <button className='Note__delete' type='button' onClick={this.handleClickDelete}>
           <FontAwesomeIcon icon='trash-alt' />
           {' '}
-        remove
-      </button>
-        <div className='Note__dates'>
+          Remove
+        </button>
+        {/* <div className='Note__dates'>
           <div className='Note__dates-modified'>
             Modified
           {' '}
             <span className='Date'>
-              {format(date_modified, 'Do MMM YYYY')}
-              {content}
+              {format(date_modified, 'Do MMM YYYY')}<br />
             </span>
           </div>
+        </div> */}
+        <div className='Note__content'>
+          {content}
         </div>
       </div>
     )
